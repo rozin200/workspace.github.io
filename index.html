@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Portfolio</title>
+	<style type="text/css">
+		.main{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+<div id="Loading"> Loading....</div>
+<div class="main" id="mainContainer" hidden="">
+<img 
+	width="200px"
+	height="200px"
+	id="profilePicture" 	
+>
+<h2 id="fullName"></h2>
+<p id="bio"></p>
+<h5 id="followersinformation"></h5>
+<p>
+	Get me on <a id = "link">GitHub</a>
+
+</p>
+<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FLegacy-Luga-Factory-100799061875193%2F&tabs=timeline&width=500&height=400&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="500" height="400" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+</div>
+<script type="text/javascript">
+	fetch("https://api.github.com/users/rozin200")
+	.then(response => response.json())
+	.then(function(data){
+		console.log(data)
+
+		let followersCount = data['followers']
+		let followersInfo = `I have been followed by ${followersCount} awesome people in github`
+		document.getElementById('profilePicture').src = data['avatar_url']
+		document.getElementById('fullName').textContent = data['name']
+		document.getElementById('bio').textContent = data['bio']
+		document.getElementById('followersinformation').textContent = followersInfo
+		document.getElementById('link').href = data['html_url']
+		document.getElementById('mainContainer').hidden = false
+		document.getElementById('Loading').hidden = true
+
+	})
+</script>
+<script>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0" nonce="Bn27746y"></script>
+</body>
+</html>
